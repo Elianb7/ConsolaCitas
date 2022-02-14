@@ -1,0 +1,74 @@
+﻿@using Entidades
+@model IEnumerable<Medico>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Medicos</h1>
+ <div class="col-sm-6">
+            <h3>Lista de Medicos</h3>
+        </div>
+<div class="container">
+
+    @*Mensaje de confirmación*@
+    @if (TempData["mensaje"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @TempData["mensaje"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                <span aria-hidden="true">
+                    &times;
+                </span>
+            </button>
+        </div>
+    }
+
+    <div class="row">
+        @if (Model.Count() >0)
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr> 
+                        <td>Id</td>
+                        <td>Nombre</td>
+                        <td>Apellido</td>
+                        <td>Area</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Nombre</td>
+                            <td>@item.Apellido</td>
+                            <td>@item.Area</td>
+                            <td>
+                                <a class="btn btn-warning"
+                                    asp-controller="Medico" asp-action="Edit" asp-route-id="@item.Id">
+                                    Editar
+                                </a>
+                                <a class="btn btn-danger"
+                                    asp-controller="Medico" asp-action="Delete" asp-route-id="@item.Id">
+                                    Borrar
+                                </a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            
+    <div class="row">
+        <div class="col-sm-6">
+            <a class="btn btn-success d-block"
+                asp-controller="Medico" asp-action="Create" >
+                Crear medico
+            </a>
+        </div>
+    </div>
+        }
+    </div>
+</div>

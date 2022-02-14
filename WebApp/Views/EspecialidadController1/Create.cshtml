@@ -1,0 +1,29 @@
+﻿@using Entidades
+
+@model Especialidad
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Creación de Especialidades</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3> Nuevo Especialidad</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10">
+           <div class="form-group">
+                    <label class="custom-control-label">Empleado: </label>
+                    <select class="form-control"
+                            asp-for="CitaId" asp-items="@ViewBag.selectListCosto">
+                        <option value="">--Seleccione un empleado---</option>
+                    </select>
+                </div>                
+        </div>
+    </div>
+

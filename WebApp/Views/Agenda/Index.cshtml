@@ -1,0 +1,67 @@
+﻿@using Entidades
+@model IEnumerable<Agenda>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Litado de citas</h1>
+
+<div class="container">
+    <div class="row">
+        <div class= "colcol-sm-6">
+            <h3>Lista Citas</h3>
+        </div>
+    </div>
+    @if (TempData ["mensaje"] != null){
+    <div class="alert alertalert-warning alert-alert-dismissible fade show" role="alert">
+        @TempData["Mensaje"]
+        <button type="button" class="close" data-data-dismiss="alert" ariaaria-label="close">
+            <span ariaaria-hidden="true">
+                &times;
+            </span>
+        </button>
+
+    </div>
+    }
+<div class="table table-bordered">
+    <table>
+        <thead>
+            <tr>
+              <td>Id</td>
+              <td>Fecha Actual</td>
+              <td>Fecha Cita</td>
+              <td>Usuario</td>
+              <td>Costo Cita</td>
+              <td>Modalidad</td>
+              <td>Estado</td>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach(Agenda agenda in Model)
+                {
+                   <tr>
+                   <td>@agenda.Id</td> 
+                   <td>@agenda.CreatedDate</td> 
+                   <td>@agenda.FechaCita </td> 
+                   <td>@agenda.Usuario.Nombre</td> 
+                   <td>@agenda.CostoCita.CostoJornada</td>
+                   <td>@agenda.Modalidad.NonbreModalidad</td>
+                   <td>@agenda.Estado</td>
+                   <td>
+                       
+                        <a asp-controller="Agenda" asp-action="Validar" asp-route-id="@agenda.Id" class="btn btn-warning">Validar</a>
+                    
+                   </td>
+                   </tr>
+                }     
+        </tbody>
+    </table>
+     
+</div>
+</div>
+
+
+
+    

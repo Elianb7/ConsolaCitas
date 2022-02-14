@@ -1,0 +1,93 @@
+﻿@using Entidades
+
+@model Agenda
+@{
+    ViewData["Title"] = "Validar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Agenda</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <form method="post" asp-action="Validar">
+                 <input asp-for="ModalidadId" hidden />
+                 <input  asp-for="UserId" hidden />
+                 <input  asp-for="CitaId" hidden />
+
+                <div class="form-group">
+                    <label class="control-label">Agenda Id</label>
+                    <input class="form-control" asp-for="Id" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Costo</label>
+                    <input class="form-control" asp-for="CostoCita.CostoJornada" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Modalidad</label>
+                    <input class="form-control" asp-for="Modalidad.NonbreModalidad" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Usuario</label>
+                    <input class="form-control" asp-for="Usuario.Nombre" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Estado</label>
+                    <input class="form-control" asp-for="Estado" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Validar" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-8">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td>Modalidad</td>
+                            <td>Costo</td>
+                            <td>Especilidad</td>
+                            <td>Medico</td>
+                            <td>Precio Inicial</td>
+                            <td>Iva</td>
+                            <td>Precio Final</td>
+                            <td>Pago Final</td>
+                            <td>Estado Pago</td>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AgendaDets)
+                        {
+                            <tr>
+                                <td>@item.Especialidad.Modalidad.NonbreModalidad</td>
+                                <td>@item.Especialidad.CostoCita.CostoJornada</td>
+                                <td>@item.Especialidad.NombreEspecilidad</td>
+                                <td>@item.Especialidad.Medico.Nombre</td>
+                            @if(item.PagoCita != null)
+                            {
+                                <td>@item.PagoCita.pago</td>
+                                <td>@item.PagoCita.Iva</td>
+                                <td>@item.PagoCita.pFinal</td>
+                                <td>@ViewBag.pagoCitaCalc.PagoFinal(item.PagoCita)</td>
+                                <td>@ViewBag.pagoCitaCalc.Aprobado(item.PagoCita)</td>
+                            }
+                            else
+                            {
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+
